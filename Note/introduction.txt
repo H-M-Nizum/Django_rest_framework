@@ -1,0 +1,4 @@
+DRF :- Django REST framework(DRF) is a powrful and flexible toolkit for building web API. DRF is based on django's class-based views.
+API :- Application programming interface is a software intermediary that allows two or more applications to talk to each other.
+Web API :- A web API is an application programming interface for the web.
+
