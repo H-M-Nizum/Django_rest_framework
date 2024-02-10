@@ -20,3 +20,19 @@ def Schoolviews(request):
     # Json data send to user
 
     return HttpResponse(json_data, content_type = 'application/json')
+
+# Model instance
+def SingleSchoolviews(request, pk):
+    # complex data
+    complex_data = SchoolModel.objects.get(id=pk)
+
+    #python dict or native data 
+    native_data = SchoolSerializers(complex_data)
+    # print(native_data)
+
+    # render json
+    json_data = JSONRenderer().render(native_data.data)
+
+    # Json data send to user
+
+    return HttpResponse(json_data, content_type = 'application/json')
