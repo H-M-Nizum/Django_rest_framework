@@ -2,3 +2,12 @@ DRF :- Django REST framework(DRF) is a powrful and flexible toolkit for building
 API :- Application programming interface is a software intermediary that allows two or more applications to talk to each other.
 Web API :- A web API is an application programming interface for the web.
 
+
+Serializer :- Serializer allow complex data such as querysets and model instances to be converted to native python datatypes
+		that can then be easily rendered into JSON, XML or other content.
+
+Complex Data ==>> Native python Datatype ==>> JSON data
+	(Serializer)		(Render into Json)
+
+JOSN :- stands for javaScript Object Notation. Json is often used When data is sent from a server to a web page.
+	Ex :- {"username":"aaa", "password":"1234"}
