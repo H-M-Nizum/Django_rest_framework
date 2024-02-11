@@ -26,3 +26,34 @@ const displaydata = (course) => {
 
 }
 accessdata()
+
+
+// Create post method or create a new instance for school model.
+
+const createInstance = () => {
+    const teacher = document.getElementById("teacher").value
+    const course = document.getElementById("course").value
+    const duration = document.getElementById("duration").value
+    const seat = document.getElementById("seat").value
+    console.log(teacher)
+    console.log(course)
+    console.log(duration)
+    console.log(seat)
+
+    // create a object
+    const instance = {
+        teacher,
+        course,
+        duration,
+        seat,
+    }
+    console.log(instance)
+    fetch('http://127.0.0.1:8000/app/create/', {
+        method : 'POST',
+        headers : {'content-type': 'application/json',},
+        body : JSON.stringify(instance),
+       
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+}

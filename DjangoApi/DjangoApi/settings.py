@@ -54,12 +54,21 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'DjangoApi.urls'
+
+# for CORS policy start
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5500",
     # Add other origins as needed
 ]
+
+CORS_ALLOW_HEADERS = [
+    'access-control-allow-origin',
+    'content-type',  # Corrected to lowercase
+]
+# for CORS policy end
 
 TEMPLATES = [
     {
