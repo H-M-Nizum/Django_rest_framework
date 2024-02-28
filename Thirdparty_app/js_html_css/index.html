@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
-</head>
-<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
-    <h1>Hello</h1>
-    <table>
+</head>
+<body class="ms-3 me-3">
+    
+    <h1>School model all data</h1>
+    <table class="table">
         <thead>
             <tr>
-                <th>#ID</th>
-                <th>Teacher Name</th>
-                <th>Course Name</th>
-                <th>Course Duration</th>
-                <th>Seat</th>
+                <th scope="col">#ID</th>
+                <th scope="col">Teacher Name</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Duration</th>
+                <th scope="col">Seat</th>
             </tr>
         </thead>
         <tbody id="tbody">
@@ -26,7 +28,8 @@
     <br>
 
     <!-- create model instance -->
-    <section>
+    <h1 class="text-danger text-center"><================ Create Model Instance ==============></h1><br>
+    <section class="p-5 border bg-success text-white text-center">
         <form method="post">
             <div>
                 <label for="teacher">Teacher Name</label>
@@ -50,9 +53,58 @@
             <br>
         </form>
         <div>
-            <button type="submit" onclick="createInstance()">Submit</button>
+            <button class="btn btn-info" type="submit" onclick="createInstance()">Submit</button>
         </div>
     </section>
+
+    <!-- Update model instance -->
+    <br>
+    <h1 class="text-danger text-center"><================ Update Model Instance ==============></h1><br>
+    <section id="update_model_instance" class="mb-5 p-5 border bg-info text-white text-center">
+        <!-- Get teacher id -->
+        <div class="text-center p-5 border bg-info-subtle">
+            <form method="post">
+                <div>
+                    <label class="text-dark" for="Id">Teacher ID</label>
+                    <input type="text" id="Id" placeholder="Enter Teacher ID">
+                </div>
+            </form>
+            <br>
+            <div>
+                <button class="btn btn-danger" type="submit" onclick="Access_teacherID()">Submit</button>
+            </div>
+        </div>
+        <br>
+        <!-- update model instance data -->
+        <form method="put">
+            <div>
+                <label for="teacher1">Teacher Name</label>
+                <input id="teacher1" type="text" placeholder="Enter teacher name" >
+            </div>
+            <br>
+            <div>
+                <label for="course1">Course Name</label>
+                <input id="course1" type="text" placeholder=" Enter Course name">
+            </div>
+            <br>
+            <div>
+                <label for="duration1">Course Duration</label>
+                <input id="duration1" type="number" placeholder="Enter Course Duration">
+            </div>
+            <br>
+            <div>
+                <label for="seat1">Seat</label>
+                <input id="seat1" type="number" placeholder="Enter Course Seat">
+            </div>
+            <br>
+        </form>
+        <div>
+            <button class="btn btn-success" type="submit" onclick="Update_model_instance()">Submit</button>
+        </div>
+    </section>
+
+    <!-- js scripts -->
     <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
