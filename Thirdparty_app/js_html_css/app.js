@@ -10,16 +10,17 @@ const accessdata = () => {
     .catch(err => console.log(err))
 }
 const displaydata = (course) => {
-    let id = 0
+    let Id = 0
     course.forEach(data => {
-        id = id + 1
+        Id = Id + 1
         document.getElementById("tbody").innerHTML += `
-        <tr>
-            <td scope="row">${id}</td>
+        <tr id="${data.id}">
+            <td scope="row">${Id}</td>
             <td>${data.teacher_name}</td>
             <td>${data.course_name}</td>
             <td>${data.course_duration}</td>
             <td>${data.seat}</td>
+            <td><button type="submit" onclick="deleteModelINstance('${data.id}')">DELETE</button></td>
         </tr>
         `
     });
@@ -103,4 +104,13 @@ const Update_model_instance = () => {
     .then((res) => res.json())
     .then((data) => console.log(data))
     .catch((error) => console.error('Error:', error));
+}
+
+
+// DELEte model instance 
+
+const deleteModelINstance = (id) => {
+    console.log("delete instance", id)
+    // i should use modelserializer in my django project for model instance id. 
+    // so delete operation is not work .
 }
