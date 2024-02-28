@@ -1,21 +1,25 @@
-DRF :- Django REST framework(DRF) is a powrful and flexible toolkit for building web API. DRF is based on django's class-based views.
-API :- Application programming interface is a software intermediary that allows two or more applications to talk to each other.
-Web API :- A web API is an application programming interface for the web.
+1) DRF :- Django REST framework(DRF) is a powrful and flexible toolkit for building web API. DRF is based on django's class-based views.
+2) API :- Application programming interface is a software intermediary that allows two or more applications to talk to each other.
+3) Web API :- A web API is an application programming interface for the web.
 
 
-Serializer :- Serializer allow complex data such as querysets and model instances to be converted to native python datatypes
+4) Serializer :- Serializer allow complex data such as querysets and model instances to be converted to native python datatypes
 		that can then be easily rendered into JSON, XML or other content.
 
-Complex Data ==>> Native python Datatype ==>> JSON data
-	(Serializer)		(Render into Json)
+	 Complex Data ==>> Native python Datatype ==>> JSON data
+				(Serializer)		(Render into Json)
 
-JOSN :- stands for javaScript Object Notation. Json is often used When data is sent from a server to a web page.
+	a} complex_Data = model_name.Objects.all()
+	b} complex_to_nativePythonData = Serializer_name(complex_Data)
+	c} native_to_JSONdata = JSONRenderer().render(complex_to_nativePythonData.data)
+
+5) JOSN :- stands for javaScript Object Notation. Json is often used When data is sent from a server to a web page.
 	Ex :- {"username":"aaa", "password":"1234"}
 
-Deserialization :- The process of converting vative python datatypes such as dictionaries to complex data types 
+6) Deserialization :- The process of converting vative python datatypes such as dictionaries to complex data types 
 	such as querysets is called deserialization. Serializers also provide deserialization, Allowing parsed
 	data to be converted back into complex types, ager first validating the incoming data.
 
 
-JSON data ==>> Native Python Datatype ==>> Complex datatype
-	(parse data)		(deserialization)
+	JSON data ==>> Native Python Datatype ==>> Complex datatype
+			(parse data)		(deserialization)
