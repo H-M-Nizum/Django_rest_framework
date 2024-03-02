@@ -196,3 +196,60 @@ def studentViews(request, pk=None):
         studentdata = StudentModel.objects.get(id=id)
         studentdata.delete()
         return Response({'msg' : 'Successfully delete data using DELETE method'})
+
+
+# ############################# Class based APIVIews #######################
+
+from rest_framework.views import APIView
+from .models import TeacherModel
+from .serializers import TeacherSerializers
+
+class TeacherViews(APIView):
+    def get(self, request, pk=None, format=None):
+        id=pk
+        if id is not None:
+            teacherdata = TeacherModel.objects.get(id=id)
+            pythondata = TeacherSerializers(teacherdata)
+            return Response(pythondata.data)
+        
+        teacherdata = TeacherModel.objects.all()
+        pythondata = TeacherSerializers(teacherdata, many=True)
+        return Response(pythondata.data)
+
+
+    # POST method
+    def post(self, request, format=None):
+        serializerdata = TeacherSerializers(data=request.data)
+        if serializerdata.is_valid():
+            serializerdata.save()
+            return Response({'msg' : 'Successfully create data'})
+        return Response(serializerdata.errors)
+
+    # PUT method
+    def put(self, request, pk, format=None):
+        id = pk
+        teacherdata = TeacherModel.objects.get(id=id)
+        pythondata = TeacherSerializers(teacherdata, data = request.data)
+
+        if pythondata.is_valid():
+            pythondata.save()
+            return Response({'msg' : 'Update successfully using PUT method'})
+        return Response(pythondata.errors)
+    
+    # PATCH method
+    def patch(self, request, pk, format=None):
+        id=pk
+        teacherdata = TeacherModel.objects.get(id=id)
+        pythondata = TeacherSerializers(teacherdata, data=request.data, partial=True)
+
+        if pythondata.is_valid():
+            pythondata.save()
+            return Response({'msg' : 'Update successfully using PATCH mehod'})
+        return Response(pythondata.errors)
+
+    # DELETE method
+    def delete(self, request, pk, format=None):
+        id=pk
+        deletedata = TeacherModel.objects.get(id=id)
+        deletedata.delete()
+        return Response({'msb' : 'Successfully delete data'})

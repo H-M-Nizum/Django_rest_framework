@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import SchoolModel, StudentModel
+from .models import SchoolModel, StudentModel, TeacherModel
 
 # Normal serializer
 class SchoolSerializers(serializers.Serializer):
@@ -30,4 +30,11 @@ class StudentSerializers(serializers.ModelSerializer):
     class Meta:
         model = StudentModel
         fields = ['student_name', 'class_name', 'age', 'roll']
+        # fields = '__all__'  # Mean all fields in studentModel
+
+# Model serializer for teacher model
+class TeacherSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = TeacherModel
+        fields = ['teacher_name', 'subject_name', 'age', 'salary']
         # fields = '__all__'  # Mean all fields in studentModel
