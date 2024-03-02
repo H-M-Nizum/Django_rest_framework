@@ -146,7 +146,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def studentViews(request, pk=None):
     if request.method == "GET":
         id = pk
@@ -160,3 +160,12 @@ def studentViews(request, pk=None):
         studentdata = StudentModel.objects.all()
         pythondata = StudentSerializers(studentdata, many=True)
         return Response(pythondata.data)
+
+    # POST method
+    if request.method == "POST":
+        serialierData = StudentSerializers(data = request.data)
+        if serialierData.is_valid():
+            serialierData.save()
+
+            return Response({'msg' : 'Successfully insert data'})
+        return Response(serialierData.errors)
