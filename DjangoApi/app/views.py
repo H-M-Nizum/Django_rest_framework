@@ -146,7 +146,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 def studentViews(request, pk=None):
     if request.method == "GET":
         id = pk
@@ -169,3 +169,30 @@ def studentViews(request, pk=None):
 
             return Response({'msg' : 'Successfully insert data'})
         return Response(serialierData.errors)
+    
+    # PUT method  ## Full instance updated
+    if request.method == "PUT":
+        id = pk
+        studentdata = StudentModel.objects.get(id=id)
+        serialierData = StudentSerializers(studentdata, data = request.data)
+        if serialierData.is_valid():
+            serialierData.save()
+            return Response({'msg' : 'successfully update data using put method'})
+        return Response(serialierData.errors)
+
+    # PATCH method  ## one or more fields updated
+    if request.method == "PATCH":
+        id = pk
+        studentdata = StudentModel.objects.get(id=id)
+        serialierData = StudentSerializers(studentdata, data = request.data, partial=True)
+        if serialierData.is_valid():
+            serialierData.save()
+            return Response({'msg' : 'successfully update data using PATCH method'})
+        return Response(serialierData.errors)
+
+    # DELETE method
+    if request.method == "DELETE":
+        id = pk
+        studentdata = StudentModel.objects.get(id=id)
+        studentdata.delete()
+        return Response({'msg' : 'Successfully delete data using DELETE method'})
