@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import SchoolModel
+from .models import SchoolModel, StudentModel
 
+# Normal serializer
 class SchoolSerializers(serializers.Serializer):
     teacher_name = serializers.CharField(max_length=50)
     course_name = serializers.CharField(max_length=50)
@@ -22,3 +23,11 @@ class SchoolSerializers(serializers.Serializer):
         instance.save()
 
         return instance
+
+
+# Model serializer
+class StudentSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = StudentModel
+        fields = ['student_name', 'class_name', 'age', 'roll']
+        # fields = '__all__'  # Mean all fields in studentModel

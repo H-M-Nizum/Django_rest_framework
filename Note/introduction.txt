@@ -23,3 +23,5 @@
 
 	JSON data ==>> Native Python Datatype ==>> Complex datatype
 			(parse data)		(deserialization)
+
+7) Model Serializer :- 

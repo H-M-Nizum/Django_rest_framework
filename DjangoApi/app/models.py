@@ -8,3 +8,9 @@ class SchoolModel(models.Model):
     course_name = models.CharField(max_length=50)
     course_duration = models.IntegerField()
     seat = models.IntegerField()
+
+class StudentModel(models.Model):
+    student_name = models.CharField(max_length=50)
+    class_name = models.CharField(max_length=50)
+    age = models.IntegerField()
+    roll = models.IntegerField()
