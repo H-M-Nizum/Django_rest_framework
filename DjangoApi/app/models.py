@@ -14,3 +14,9 @@ class StudentModel(models.Model):
     class_name = models.CharField(max_length=50)
     age = models.IntegerField()
     roll = models.IntegerField()
+
+class TeacherModel(models.Model):
+    teacher_name = models.CharField(max_length=50)
+    subject_name = models.CharField(max_length=50)
+    age = models.IntegerField()
+    salary = models.IntegerField()
