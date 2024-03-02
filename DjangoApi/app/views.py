@@ -133,3 +133,30 @@ def create_instanceviews(request):
             return HttpResponse(json_message, content_type='application/json')
 
 
+
+# #############################################################################################
+# ###################### Class Based And Function Based Api Views #############################
+# #############################################################################################
+
+from django.shortcuts import render
+from .models import StudentModel
+from .serializers import StudentSerializers
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+@api_view(['GET'])
+def studentViews(request, pk=None):
+    if request.method == "GET":
+        id = pk
+        if id is not None:
+            # complex data
+            studentdata = StudentModel.objects.get(id=id)
+            # Python dictonary data
+            pythondata = StudentSerializers(studentdata)
+            return Response(pythondata.data)
+
+        studentdata = StudentModel.objects.all()
+        pythondata = StudentSerializers(studentdata, many=True)
+        return Response(pythondata.data)
