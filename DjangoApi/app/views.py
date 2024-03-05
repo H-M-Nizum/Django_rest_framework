@@ -298,3 +298,15 @@ class List_Create_APIView(ListCreateAPIView):
 class Retrieve_Update_Destroy_APIView(RetrieveUpdateDestroyAPIView):
     queryset = TeacherModel.objects.all()
     serializer_class = TeacherSerializers
+
+
+
+########################################################################################
+################## CRUD operation using viewsets.ModelViewSet ##########################
+########################################################################################
+
+from rest_framework import viewsets
+
+class ModelViewSetView(viewsets.ModelViewSet):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers

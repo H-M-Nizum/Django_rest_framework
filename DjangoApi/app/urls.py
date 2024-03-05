@@ -1,5 +1,13 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+
+# for model views set
+from rest_framework.routers import DefaultRouter
+# create router object
+router = DefaultRouter()
+# Register
+router.register('teacherset', views.ModelViewSetView, basename='teachermodel')
+
 urlpatterns = [
     path('school/', views.Schoolviews, name='school'),
     path('school/<int:pk>', views.SingleSchoolviews, name='singleschool'),
@@ -19,4 +27,8 @@ urlpatterns = [
     # ListCreateAPIView, RetrieveUpdateDestroyAPIView
     path('teacherlistcreate/', views.List_Create_APIView.as_view(), name="teacherlistcreate"),
     path('teacherputdeleteretrive/<int:pk>', views.Retrieve_Update_Destroy_APIView.as_view(), name="teacherputdeleteretrive"),
+
+
+    # Viewsets.ModelViewSet
+    path('', include(router.urls)),
 ]
