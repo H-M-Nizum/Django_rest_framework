@@ -36,5 +36,5 @@ class StudentSerializers(serializers.ModelSerializer):
 class TeacherSerializers(serializers.ModelSerializer):
     class Meta:
         model = TeacherModel
-        fields = ['teacher_name', 'subject_name', 'age', 'salary']
+        fields = ['id', 'teacher_name', 'subject_name', 'age', 'salary']
         # fields = '__all__'  # Mean all fields in studentModel

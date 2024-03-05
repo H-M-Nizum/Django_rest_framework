@@ -10,4 +10,11 @@ urlpatterns = [
 
     path('teacher/', views.TeacherViews.as_view(), name='teacher'),
     path('teacher/<int:pk>', views.TeacherViews.as_view(), name='single_teacher'),
+
+    # using mixin views
+    path('teachermixin/', views.TeacherMixinView.as_view(), name='teachermixin'),
+    # single instance retrive, update delete
+    path('singleteachermixin/<int:pk>', views.SingleTeacherMixinView.as_view(), name='singleteachermixin'),
+
+
 ]
