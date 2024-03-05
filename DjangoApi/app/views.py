@@ -283,3 +283,18 @@ class SingleTeacherMixinView(GenericAPIView, RetrieveModelMixin, UpdateModelMixi
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+########################################################################################
+################## ListCreateAPIView And RetrieveUpdateDestroyAPIView ##################
+########################################################################################
+
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+class List_Create_APIView(ListCreateAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+class Retrieve_Update_Destroy_APIView(RetrieveUpdateDestroyAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers

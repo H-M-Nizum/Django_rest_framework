@@ -16,5 +16,7 @@ urlpatterns = [
     # single instance retrive, update delete
     path('singleteachermixin/<int:pk>', views.SingleTeacherMixinView.as_view(), name='singleteachermixin'),
 
-
+    # ListCreateAPIView, RetrieveUpdateDestroyAPIView
+    path('teacherlistcreate/', views.List_Create_APIView.as_view(), name="teacherlistcreate"),
+    path('teacherputdeleteretrive/<int:pk>', views.Retrieve_Update_Destroy_APIView.as_view(), name="teacherputdeleteretrive"),
 ]
