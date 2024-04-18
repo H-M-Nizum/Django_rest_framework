@@ -7,11 +7,17 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 # Register
 router.register('teacherset', views.ModelViewSetView, basename='teachermodel')
+router.register(r'categories', views.FoodCategoryViewSet)
+router.register(r'items', views.FoodItemViewSet)
+router.register(r'item', views.FoodItemViewSet1)
 
 urlpatterns = [
     path('school/', views.Schoolviews, name='school'),
     path('school/<int:pk>', views.SingleSchoolviews, name='singleschool'),
     path('create/', views.create_instanceviews, name='create_instance'),
+    
+    path('schoolClass/', views.School_class_view.as_view(), name='School_class_view'),
+
 
     path('student/', views.studentViews, name='student'),
     path('student/<int:pk>', views.studentViews, name='single_student'),
@@ -28,7 +34,7 @@ urlpatterns = [
     path('teacherlistcreate/', views.List_Create_APIView.as_view(), name="teacherlistcreate"),
     path('teacherputdeleteretrive/<int:pk>', views.Retrieve_Update_Destroy_APIView.as_view(), name="teacherputdeleteretrive"),
 
-
+   path('search/', views.FoodSearchAPIView.as_view(), name='food_search'),
     # Viewsets.ModelViewSet
     path('', include(router.urls)),
 ]

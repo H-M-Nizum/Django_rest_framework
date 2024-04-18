@@ -2,7 +2,7 @@ from django.shortcuts import render
 from . models import SchoolModel
 from . serializers import SchoolSerializers
 from rest_framework.renderers import JSONRenderer
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.views.decorators.csrf import csrf_exempt
 import io
@@ -11,6 +11,9 @@ from rest_framework.parsers import JSONParser
 from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
+#####################################################
+######### simple function based view ################
+#####################################################
 # Queryset
 def Schoolviews(request):
     # complex data
@@ -24,8 +27,13 @@ def Schoolviews(request):
     json_data = JSONRenderer().render(native_data.data)
 
     # Json data send to user
-
     return HttpResponse(json_data, content_type = 'application/json')
+
+    # render json and json data send to user work together using JsonResponse
+    # return JsonResponse(native_data.data, safe=False)
+
+
+
 
 # Model instance
 def SingleSchoolviews(request, pk):
@@ -37,11 +45,13 @@ def SingleSchoolviews(request, pk):
     # print(native_data)
 
     # render json
-    json_data = JSONRenderer().render(native_data.data)
+    # json_data = JSONRenderer().render(native_data.data)
 
     # Json data send to user
+    # return HttpResponse(json_data, content_type = 'application/json')
 
-    return HttpResponse(json_data, content_type = 'application/json')
+    # render json and json data send to user work together using JsonResponse
+    return JsonResponse(native_data.data)
 
 
 # Create School model instance
@@ -133,6 +143,124 @@ def create_instanceviews(request):
             return HttpResponse(json_message, content_type='application/json')
 
 
+
+# ###########################################################################################
+# ##################### Simple Class Based Views ############################################
+# ###########################################################################################
+from django.utils.decorators import method_decorator
+from django.views import View
+
+@method_decorator(csrf_exempt, name='dispatch')
+class School_class_view(View):
+    def get(self, request, *args, **kwargs):
+        # json_data = request.body
+        # stream = io.BytesIO(json_data)
+        # pythondata = JSONParser().parse(stream)
+        # id = pythondata.get('id', None)
+        # if id is not None:
+        #     complex_data = SchoolModel.get(id=id)
+        #     native_data = SchoolSerializers(complex_data)
+        #     return JsonResponse(native_data.data)
+
+        # complex data
+        complex_data = SchoolModel.objects.all()
+
+        #python dict or native data 
+        native_data = SchoolSerializers(complex_data, many=True)
+        # print(native_data)
+
+        # render json
+        json_data = JSONRenderer().render(native_data.data)
+
+        # Json data send to user
+        return HttpResponse(json_data, content_type = 'application/json')
+
+        # render json and json data send to user work together using JsonResponse
+        # return JsonResponse(native_data.data, safe=False)
+
+    def post(self, request, *args, **kwargs):
+        # contain instance data
+        json_data = request.body
+        # convert json to stream
+        stream_data = io.BytesIO(json_data)
+        # convert stream to python data.
+        pythondata = JSONParser().parse(stream_data)
+        # convert python data to complex data
+        complex_data = SchoolSerializers(data = pythondata)
+
+        # save data
+        if complex_data.is_valid():
+            complex_data.save()
+            message = {'msg' : 'Successfully insert data'}
+            # convert message to json data
+            json_message = JSONRenderer().render(message)
+            return HttpResponse(json_message, content_type = 'application.json')
+        json_message = JSONRenderer().render(complex_data.errors)
+        return HttpResponse(json_message, content_type = 'application.json')
+
+    def put(self, request, *args, **kwargs):
+        # contain instance data
+        json_data = request.body
+        # convert json to stream
+        stream_data = io.BytesIO(json_data)
+        # convert stream to python data.
+        pythondata = JSONParser().parse(stream_data)
+
+        # get instance id
+        id = pythondata.get('id')
+        try:
+            object_instance = SchoolModel.objects.get(id=id)
+            print(object_instance)
+            # convert python data to complex data
+            # partial=true means don't need to update total model instance
+            complex_data = SchoolSerializers(object_instance, data = pythondata, partial=True)
+
+            # save data
+            if complex_data.is_valid():
+                complex_data.save()
+                message = {'msg' : 'Successfully insert data'}
+                # convert message to json data
+                json_message = JSONRenderer().render(message)
+                return HttpResponse(json_message, content_type = 'application.json')
+            json_message = JSONRenderer().render(complex_data.errors)
+            return HttpResponse(json_message, content_type = 'application.json')
+            
+        except ObjectDoesNotExist:
+            message = {'msg': 'This id is not available'}
+            # convert message to json data
+            json_message = JSONRenderer().render(message)
+
+            return HttpResponse(json_message, content_type='application/json')
+
+    def delete(self, request, *args, **kwargs):
+        # contain instance data
+        json_data = request.body
+        # convert json to stream
+        stream_data = io.BytesIO(json_data)
+        # convert stream to python data.
+        pythondata = JSONParser().parse(stream_data)
+
+        # get instance id
+        id = pythondata.get('id')
+        try:
+            object_instance = SchoolModel.objects.get(id=id)
+            print(object_instance)
+
+            # delete model instance
+            object_instance.delete()
+
+            message = {'msg': 'Successfully deleted data'}
+            # convert message to json data
+            json_message = JSONRenderer().render(message)
+
+            return HttpResponse(json_message, content_type='application/json')
+
+        except ObjectDoesNotExist:
+            message = {'msg': 'This id is not available'}
+            # convert message to json data
+            json_message = JSONRenderer().render(message)
+
+            return HttpResponse(json_message, content_type='application/json')
 
 # #############################################################################################
 # ###################### Class Based And Function Based Api Views #############################
@@ -310,3 +438,51 @@ from rest_framework import viewsets
 class ModelViewSetView(viewsets.ModelViewSet):
     queryset = TeacherModel.objects.all()
     serializer_class = TeacherSerializers
+
+
+from .models import FoodCategory, FoodItem
+from .serializers import FoodCategorySerializer, FoodItemSerializer
+
+class FoodCategoryViewSet(viewsets.ModelViewSet):
+    queryset = FoodCategory.objects.all()
+    serializer_class = FoodCategorySerializer
+
+class FoodItemViewSet(viewsets.ModelViewSet):
+    queryset = FoodItem.objects.all()
+    serializer_class = FoodItemSerializer
+
+# from rest_framework import generics
+# from rest_framework.response import Response
+# class TeacherSearchAPIView(generics.ListAPIView):
+#     serializer_class = TeacherSerializers
+
+#     def get_queryset(self):
+#         query = self.request.query_params.get('name', '')
+#         if query:
+#             return TeacherModel.objects.filter(name__icontains=query)
+#         return TeacherModel.objects.none()
+
+from rest_framework import generics
+from rest_framework.response import Response
+from .models import FoodItem
+from .serializers import FoodItemSerializer
+
+class FoodSearchAPIView(generics.ListAPIView):
+    serializer_class = FoodItemSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get('name', '')
+        if query:
+            return FoodItem.objects.filter(name__icontains=query)
+        return FoodItem.objects.none()
+
+class FoodItemViewSet1(viewsets.ModelViewSet):
+    queryset = FoodItem.objects.all()
+    serializer_class = FoodItemSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        name = self.request.query_params.get('name')
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+        return queryset

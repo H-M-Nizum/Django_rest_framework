@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import SchoolModel, StudentModel, TeacherModel
+from . models import SchoolModel, StudentModel, TeacherModel, FoodCategory, FoodItem
 # Register your models here.
 
 class SchoolAdmin(admin.ModelAdmin):
@@ -13,4 +13,7 @@ admin.site.register(StudentModel, StudentAdmin)
 class TeacherAdmin(admin.ModelAdmin):
     list_display =['id', 'teacher_name', 'subject_name', 'age', 'salary'] 
 admin.site.register(TeacherModel, TeacherAdmin)
+
+admin.site.register(FoodCategory)
+admin.site.register(FoodItem)
 

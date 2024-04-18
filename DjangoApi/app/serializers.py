@@ -38,3 +38,16 @@ class TeacherSerializers(serializers.ModelSerializer):
         model = TeacherModel
         fields = ['id', 'teacher_name', 'subject_name', 'age', 'salary']
         # fields = '__all__'  # Mean all fields in studentModel
+
+
+from .models import FoodCategory, FoodItem
+
+class FoodCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodCategory
+        fields = '__all__'
+
+class FoodItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodItem
+        fields = '__all__'
