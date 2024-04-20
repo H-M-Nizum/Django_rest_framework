@@ -33,8 +33,6 @@ def Schoolviews(request):
     # return JsonResponse(native_data.data, safe=False)
 
 
-
-
 # Model instance
 def SingleSchoolviews(request, pk):
     # complex data
@@ -280,10 +278,13 @@ def studentViews(request, pk=None):
         id = pk
         if id is not None:
             # complex data
-            studentdata = StudentModel.objects.get(id=id)
-            # Python dictonary data
-            pythondata = StudentSerializers(studentdata)
-            return Response(pythondata.data)
+            try:
+                studentdata = StudentModel.objects.get(id=id)
+                # Python dictonary data
+                pythondata = StudentSerializers(studentdata)
+                return Response(pythondata.data)
+            except ObjectDoesNotExist:
+                return Response({'msg' : 'This object Does Not Exist'})
 
         studentdata = StudentModel.objects.all()
         pythondata = StudentSerializers(studentdata, many=True)
@@ -301,29 +302,40 @@ def studentViews(request, pk=None):
     # PUT method  ## Full instance updated
     if request.method == "PUT":
         id = pk
-        studentdata = StudentModel.objects.get(id=id)
-        serialierData = StudentSerializers(studentdata, data = request.data)
-        if serialierData.is_valid():
-            serialierData.save()
-            return Response({'msg' : 'successfully update data using put method'})
-        return Response(serialierData.errors)
+        try:
+            studentdata = StudentModel.objects.get(id=id)
+            serialierData = StudentSerializers(studentdata, data = request.data)
+            if serialierData.is_valid():
+                serialierData.save()
+                return Response({'msg' : 'successfully update data using put method'})
+            return Response(serialierData.errors)
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
+
+
 
     # PATCH method  ## one or more fields updated
     if request.method == "PATCH":
         id = pk
-        studentdata = StudentModel.objects.get(id=id)
-        serialierData = StudentSerializers(studentdata, data = request.data, partial=True)
-        if serialierData.is_valid():
-            serialierData.save()
-            return Response({'msg' : 'successfully update data using PATCH method'})
-        return Response(serialierData.errors)
+        try:
+            studentdata = StudentModel.objects.get(id=id)
+            serialierData = StudentSerializers(studentdata, data = request.data, partial=True)
+            if serialierData.is_valid():
+                serialierData.save()
+                return Response({'msg' : 'successfully update data using PATCH method'})
+            return Response(serialierData.errors)
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
 
     # DELETE method
     if request.method == "DELETE":
         id = pk
-        studentdata = StudentModel.objects.get(id=id)
-        studentdata.delete()
-        return Response({'msg' : 'Successfully delete data using DELETE method'})
+        try:
+            studentdata = StudentModel.objects.get(id=id)
+            studentdata.delete()
+            return Response({'msg' : 'Successfully delete data using DELETE method'})
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
 
 
 # ############################# Class based APIVIews #######################
@@ -335,15 +347,17 @@ from .serializers import TeacherSerializers
 class TeacherViews(APIView):
     def get(self, request, pk=None, format=None):
         id=pk
-        if id is not None:
-            teacherdata = TeacherModel.objects.get(id=id)
-            pythondata = TeacherSerializers(teacherdata)
+        try:
+            if id is not None:
+                teacherdata = TeacherModel.objects.get(id=id)
+                pythondata = TeacherSerializers(teacherdata)
+                return Response(pythondata.data)
+            
+            teacherdata = TeacherModel.objects.all()
+            pythondata = TeacherSerializers(teacherdata, many=True)
             return Response(pythondata.data)
-        
-        teacherdata = TeacherModel.objects.all()
-        pythondata = TeacherSerializers(teacherdata, many=True)
-        return Response(pythondata.data)
-
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
 
     # POST method
     def post(self, request, format=None):
@@ -356,32 +370,39 @@ class TeacherViews(APIView):
     # PUT method
     def put(self, request, pk, format=None):
         id = pk
-        teacherdata = TeacherModel.objects.get(id=id)
-        pythondata = TeacherSerializers(teacherdata, data = request.data)
+        try:
+            teacherdata = TeacherModel.objects.get(id=id)
+            pythondata = TeacherSerializers(teacherdata, data = request.data)
 
-        if pythondata.is_valid():
-            pythondata.save()
-            return Response({'msg' : 'Update successfully using PUT method'})
-        return Response(pythondata.errors)
-    
+            if pythondata.is_valid():
+                pythondata.save()
+                return Response({'msg' : 'Update successfully using PUT method'})
+            return Response(pythondata.errors)
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
+
     # PATCH method
     def patch(self, request, pk, format=None):
         id=pk
-        teacherdata = TeacherModel.objects.get(id=id)
-        pythondata = TeacherSerializers(teacherdata, data=request.data, partial=True)
+        try:
+            teacherdata = TeacherModel.objects.get(id=id)
+            pythondata = TeacherSerializers(teacherdata, data=request.data, partial=True)
 
-        if pythondata.is_valid():
-            pythondata.save()
-            return Response({'msg' : 'Update successfully using PATCH mehod'})
-        return Response(pythondata.errors)
-
+            if pythondata.is_valid():
+                pythondata.save()
+                return Response({'msg' : 'Update successfully using PATCH mehod'})
+            return Response(pythondata.errors)
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
     # DELETE method
     def delete(self, request, pk, format=None):
         id=pk
-        deletedata = TeacherModel.objects.get(id=id)
-        deletedata.delete()
-        return Response({'msb' : 'Successfully delete data'})
-
+        try:
+            deletedata = TeacherModel.objects.get(id=id)
+            deletedata.delete()
+            return Response({'msb' : 'Successfully delete data'})
+        except ObjectDoesNotExist:
+            return Response({'msg' : 'This object Does Not Exist'})
 
 # ###################### Using mixins in Django Rest Framework ###################
 
