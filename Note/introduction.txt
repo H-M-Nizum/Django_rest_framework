@@ -62,4 +62,16 @@
 			However, sometimes i want to place i validation logic into resuable components, so that it can easily, 
 			be reused throughtout i codebase. This can be achieved by using validator functions and validator classes.
 
-		Priority - Validatiors > field level validator > object level validator. 
+		Priority - Validatiors > field level validator > object level validator.
+
+8) ModelSerializer class : The ModelSerializer class provides a shotcut that lets you automatically create a 
+		serializer class with fields that correspond to the Model fields.
+		. It will automatically generate a set of fields for you, based on the model.
+		. It will automatically generate validators for the serializer, such as unique_together validators.
+		. It includes simple default implementations of create() and update().
+
+		#class StudentSerializers(serializers.ModelSerializer):
+			#class Meta:
+				#model = StudentModel
+				#fields = ['student_name', 'class_name', 'age', 'roll']
+				## fields = '__all__'  # Mean all fields in studentModel
