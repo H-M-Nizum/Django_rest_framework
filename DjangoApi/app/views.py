@@ -404,7 +404,10 @@ class TeacherViews(APIView):
         except ObjectDoesNotExist:
             return Response({'msg' : 'This object Does Not Exist'})
 
-# ###################### Using mixins in Django Rest Framework ###################
+########################################################################################
+# ###################### Using GenericAPIView, mixins in Django Rest Framework ###################
+########################################################################################
+
 
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin, CreateModelMixin
