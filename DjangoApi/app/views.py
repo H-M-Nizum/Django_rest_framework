@@ -438,15 +438,52 @@ class SingleTeacherMixinView(GenericAPIView, RetrieveModelMixin, UpdateModelMixi
 
 
 ########################################################################################
-################## ListCreateAPIView And RetrieveUpdateDestroyAPIView ##################
+################## Concrete View Class  ##################
 ########################################################################################
 
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView, ListCreateAPIView, RetrieveDestroyAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView
+# ListCreateAPIView And RetrieveUpdateDestroyAPIView
+# Get all object instance
+class List_APIView(ListAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
 
+# Create a object instance
+class Create_APIView(CreateAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+# Get single object instance
+class Retrieve_APIView(RetrieveAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+# Update a object instance
+class Update_APIView(UpdateAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+# Delete a object instance
+class Destroy_APIView(DestroyAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+# Get all object instance and Create a object instance
 class List_Create_APIView(ListCreateAPIView):
     queryset = TeacherModel.objects.all()
     serializer_class = TeacherSerializers
 
+# Get single object instance and Delete a object instance    
+class Retrieve_Destroy_APIView(RetrieveDestroyAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+# Get single object instance and Update a object instance    
+class Retrieve_Update_APIView(RetrieveUpdateAPIView):
+    queryset = TeacherModel.objects.all()
+    serializer_class = TeacherSerializers
+
+# Get single object instance , Update a object instance and Delete a object instance
 class Retrieve_Update_Destroy_APIView(RetrieveUpdateDestroyAPIView):
     queryset = TeacherModel.objects.all()
     serializer_class = TeacherSerializers

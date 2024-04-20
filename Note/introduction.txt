@@ -152,3 +152,10 @@
 
 	. *There are Five mixins class -
 		 • ListModelMixin • CreateModelMixin • RetrieveModelMixin • UpdateModelMixin • DestroyModelMixin
+
+12) Concrete View Class :- 
+	The following classes are the concrete generic views. 
+	If you're using generic views this is normally the level you'll be working at unless you need heavily customized behavior. 
+	The view classes can be imported from rest_framework.generics 
+		• ListAPIView • CreateAPIView • RetrieveAPIView • UpdateAPIView • DestroyAPIView 
+		• ListCreateAPIView • RetrieveUpdateAPIView · RetrieveDestroyAPIView · RetrieveUpdateDestroyAPIView
