@@ -1,13 +1,21 @@
 1) DRF :- Django REST framework(DRF) is a powrful and flexible toolkit for building web API. DRF is based on django's class-based views.
 2) API :- Application programming interface is a software intermediary that allows two or more applications to talk to each other.
+	API Type in terms of release policies:-
+	a) Private - It can be used within the organization.
+	b) Partner - It can be used within Business partners.
+	c) Public - It can be used any third party Developers.
 3) Web API :- A web API is an application programming interface for the web.
 3.1) REST :- Representational State Transfer (REST) refers to a group of software architecture design constraints that bring
-			 about efficient, reliable and scalable systems.
+			 about efficient, reliable and scalable systems. It is an architectural guideline to develop web API.
 
 (REST resource as a librarian and the API as the language used to talk to them. )
+3.2) REST API :- The API which is developed using REST is know as REST API or RESTfull API.
 
 4) Serializer :- Serializer allow complex data such as querysets and model instances to be converted to native python datatypes
-		that can then be easily rendered into JSON, XML or other content.
+		that can then be easily rendered into JSON, XML or other content.(complex data convert native python datatype)
+	Python Json :- Python has a built in package called json, which is used to work with json data.
+		a) dumps(data) : This is used to convert python object into json string.
+		b) loads(data) : This is used to parse json string.(convert json to python object)
 
 	 Complex Data ==>> Native python Datatype ==>> JSON data
 				(Serializer)		(Render into Json)
@@ -22,9 +30,36 @@
 6) Deserialization :- The process of converting vative python datatypes such as dictionaries to complex data types 
 	such as querysets is called deserialization. Serializers also provide deserialization, Allowing parsed
 	data to be converted back into complex types, ager first validating the incoming data.
+(parse data to convert complex data type)
 
 
 	JSON data ==>> Native Python Datatype ==>> Complex datatype
 			(parse data)		(deserialization)
+	a) BytesIO() :- 
+		import io
+		stream = io.BytesIO(json_data)
+	b) JSONParser() :- This is used to parse json data to python natice data type.
+		from rest_framework.parsers import JSONParser
+		parsed_data = JSONParser().parse(stream)
+	c) De-serialization :- paesed data to be converted into complex type.
+		i) creating serializer object - serializer = serializer_name(data = parsed_data)
+		ii) Validation check - seializer.is_valid()
+			(serializer.validated_data / serializer.errors)
 
-7) Model Serializer :- 
+7) Validation :- There are three waye to write validation.
+	a) Field Level Validation : We can specify custom field-level validation by adding
+		validate_fieldName methods to your serializer subclass.
+		This are similar to the clean_fieldName methods on Django forms.
+		Return validated value or validationError.
+		syntax:- def validate_fieldname(self, value) Where value is the field value that requires validation
+		This Method is Automatically invoked or call when is_valid() method is called.
+	b) Object Level Validation : When we need to do validation that requires access to multiple fields,
+			we do object level validation by adding a method called validate() to serializer subclass.
+			It raise a serializers. validationError if necessary, or just return the validated values.
+			Syntax :- def validate(self, data), where data is a dictionary of field values.
+	c) Validatiors :- Most of the time i dealing with Validation in REST framework i simply be relying
+			on the default field va lidation. or writing explicit validation methods on serializer or field classes.
+			However, sometimes i want to place i validation logic into resuable components, so that it can easily, 
+			be reused throughtout i codebase. This can be achieved by using validator functions and validator classes.
+
+		Priority - Validatiors > field level validator > object level validator. 

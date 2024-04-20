@@ -23,7 +23,34 @@ class SchoolSerializers(serializers.Serializer):
         instance.save()
 
         return instance
+    
+    # Field Level Validation : def validate_fieldName(self, value)
+    def validate_seat(self, value):
+        if value > 50:
+            raise serializers.ValidationError('Seat must lessthen or equal to 50')
+        if value < 20:
+            raise serializers.ValidationError('Seat must less then 20')
+        return value
 
+    # Object Level Validation :def validate(self, data)
+    def validate(self, data):
+        course_name = data.get('course_name')
+        course_duration = data.get('course_duration')
+        course = ['bangla', 'ict','english', 'math', 'physics', 'cse', 'eee']
+        if course_name.lower() not in course:
+            raise serializers.ValidationError('This course are not avabile right now')
+        if course_duration > 12:
+            raise serializers.ValidationError('Course duration are not allow more then 1 year or 12 mounth')
+        return data
+    
+    # # validotrs
+    # from rest_framework import serializers
+    # def starts_with_r(value):
+    #     if value[0].lower() != 'r':
+    #         raise serializers.ValidationError('Name should start with R')
+    # class SchoolSerializers(serializers.Serializer):
+    #     teacher_name = serializers.CharField(max_length=50, validators=[starts_with_r])
+    #     course_name = serializers.CharField(max_length=50) 
 
 # Model serializer
 class StudentSerializers(serializers.ModelSerializer):
