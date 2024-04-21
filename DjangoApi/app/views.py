@@ -496,6 +496,17 @@ class Retrieve_Update_Destroy_APIView(RetrieveUpdateDestroyAPIView):
 
 from rest_framework import viewsets
 
+
+# ################# viewsets.Vietset #################
+
+# Url setup
+# from rest_framework.routers import DefaultRouter
+# router = DefaultRouter()
+# router.register('url_name', views.view_name, basename=name)
+
+# class viewsetModel(viewsets.ViewSet):
+    # code like almost APIViwe abut function name depend on Viewset.
+
 class ModelViewSetView(viewsets.ModelViewSet):
     queryset = TeacherModel.objects.all()
     serializer_class = TeacherSerializers
