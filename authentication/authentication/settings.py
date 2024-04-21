@@ -140,3 +140,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# ####################################################################
+# If i have a lot of model and view class, there i need authentication and permission.
+# When i write default authentication and permission in setting.py file.
+# If i write default this authentication, then i don't need to write authentication in views.
+# we can overwrite global authentication if i need any API class
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.BasicAuthentication'],
+#     'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+# }
