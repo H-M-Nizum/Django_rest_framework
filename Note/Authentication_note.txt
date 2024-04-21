@@ -73,4 +73,47 @@
             request.auth will be None. 
         Unauthenticated responses that are denied permission will result in an HTTP 403 Forbidden response.
         If you're using an AJAX style API with SessionAuthentication, you'll need to make sure you include a valid CSRF token for any "unsafe" HTTP method calls, 
-            such as PUT, PATCH, POST or DELETE requests.              
+            such as PUT, PATCH, POST or DELETE requests.  
+
+    c) Custom Permissions :-
+        To implement a custom permission, override BasePermission and implement either, or both, of the following methods: 
+            • has_permission(self, request, view) 
+            • has_object_permission(self, request, view, obj) 
+        The methods should return True if the request should be granted access, and False otherwise. 
+        ----------------------------------------------------------------------------
+        class IsAuthenticated(BasePermission):
+        """
+        Allows access only to authenticated users.
+        """
+
+        def has_permission(self, request, view):
+            return bool(request.user and request.user.is_authenticated)
+
+        def has_object_permission(self, request, view):
+            return bool(request.user and request.user.is_authenticated)  
+        ----------------------------------------------------------------------------
+        class OwnerPermission(BasePermission):
+    
+            def has_permission(self, request, view):
+                
+                if view.basename == "product":
+                    return bool(request.user and request.user.is_authenticated and request.user.is_owner)
+                return False
+            
+            def has_object_permission(self, request, view, obj):
+                
+                # Make sure that an owner can only modify and access its own products
+
+                if obj.shop.owner == request.owner:
+                    return True
+                
+                return False
+            
+        class ConsumerPermission(BasePermission):
+
+            def has_permission(self, request, view):
+                if view.basename == "product" and request.method in SAFE_METHODS:
+                    return bool(request.user and request.user.is_authenticated and request.user.is_consumer)
+
+                return False         
+        ----------------------------------------------------------------------------         

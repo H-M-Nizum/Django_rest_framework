@@ -31,3 +31,11 @@ class StudentSessionView(viewsets.ModelViewSet):
     # permission_classes = [AllowAny]
     # permission_classes = [IsAdminUser]
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+# create custom permission
+from .customPermission import MyPermission
+class StudentCustomPermissionView(viewsets.ModelViewSet):
+    queryset = StudentModel.objects.all()
+    serializer_class = StudentSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [MyPermission]
