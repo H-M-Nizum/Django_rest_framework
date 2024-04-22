@@ -153,3 +153,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = env('user_EMAIL')
 EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
+
+# To Use Custom User Model
+AUTH_USER_MODEL = 'account.User'
