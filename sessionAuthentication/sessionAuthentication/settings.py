@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 
 # for env
+import os
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -93,8 +94,8 @@ DATABASES = {
        'NAME': env('name'),
        'USER': env('user'),
        'PASSWORD': env('pass'),
-       'HOST': '<database_hostname_or_ip>',
-       'PORT': '<database_port>',
+       'HOST': 'localhost',
+       'PORT': 5432
    }
 }
 
@@ -144,3 +145,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
+
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env('user_EMAIL')
+EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
+EMAIL_USE_TLS = True
