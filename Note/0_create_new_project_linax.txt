@@ -28,4 +28,5 @@ python manage.py createsuperuser
 13. # Run Server
 python manage.py runserver
 
-14. 
+14.  
+15. 
