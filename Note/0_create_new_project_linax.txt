@@ -18,7 +18,7 @@ cd myProject
 10. # Create a Django App
 python manage.py startapp myapp
 
-11. # Make Migrations
+11. # Make Migrations n pottash
 python manage.py makemigrations
 python manage.py migrate
 
@@ -30,3 +30,5 @@ python manage.py runserver
 
 14.  
 15. 
+16.
+p
