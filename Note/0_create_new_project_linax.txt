@@ -1,0 +1,29 @@
+1. Check Python Version --> python3 --version
+2. Check Pip version   -->  pip --version
+
+3. Update Linax Installed app --> sudo apt update
+4. Install Virtual Environment --> sudo apt install python3.12-venv
+
+5. Create the virtual environment --> python3 -m venv env
+6. Active Virtual Environment --> source env/bin/activate
+7. Deactivate Virtual Environment --> deactivate
+
+8. # Install Django and Django REST framework into the virtual environment
+pip install djangorestframework
+
+9. # Set up a new project with a single application
+django-admin startproject myProject
+cd myProject
+
+10. # Create a Django App
+python manage.py startapp myapp
+
+11. # Make Migrations
+python manage.py makemigrations
+python manage.py migrate
+
+12. # Create Superuser
+python manage.py createsuperuser
+
+13. # Run Server
+python manage.py runserver
